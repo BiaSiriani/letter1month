@@ -9,7 +9,7 @@ body {
   
   /* Estilos do cabeçalho */
   header {
-    background-color: #007bff;
+    background-color: #fd1c1cf1;
     padding: 15px;
     display: flex;
     justify-content: space-between;
@@ -17,7 +17,7 @@ body {
   }
   
   .btn-nav {
-    color: #fff;
+    color: #000000;
     text-decoration: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -33,13 +33,13 @@ body {
     max-width: 800px;
     margin: 40px auto;
     padding: 40px;
-    background-color: #fff;
+    background-color: #d870f8a4;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
   
   .question-box {
-    background-color: #f5f5f5;
+    background-color: #da68fdee;
     padding: 30px;
     border-radius: 8px;
     text-align: center;
@@ -47,7 +47,7 @@ body {
   
   .btn-answer {
     display: inline-block;
-    background-color: #007bff;
+    background-color: #9203bd;
     color: #fff;
     text-decoration: none;
     padding: 12px 30px;
@@ -58,13 +58,13 @@ body {
   }
   
   .btn-answer:hover {
-    background-color: #0056b3;
+    background-color: #9203bd;
   }
   
   /* Estilos do rodapé */
   footer {
-    background-color: #007bff;
-    color: #fff;
+    background-color: #fd1c1cf1;
+    color: #000000;
     padding: 20px;
     text-align: center;
   }
