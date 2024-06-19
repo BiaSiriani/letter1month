@@ -1,48 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tarefas Divertidas</title>
+  <title>Calendário Mensal Compartilhado</title>
   <link rel="stylesheet" href="tarefas.css">
 </head>
 <body>
-  <header>
-    <h1>Tarefas Divertidas</h1>
-    <nav>
-      <ul>
-        <li><a href="inicio.html" class="btn-nav">Voltar</a></li>
-        <li><a href="#">Todas</a></li>
-        <li><a href="#">Aventura</a></li>
-        <li><a href="#">Criatividade</a></li>
-        <li><a href="#">Romantismo</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main>
-    <section class="tasks-container">
-      <div class="task-item">
-        <img src="tarefa1.jpg" alt="Tarefa 1">
-        <h3>Tarefa 1</h3>
-        <p>Descrição da Tarefa 1</p>
-        <button class="complete-btn">Marcar como Concluída</button>
+  <div class="container">
+    <h1>Calendário Mensal Compartilhado</h1>
+    <div class="calendar-container">
+      <div class="calendar-header">
+        <button class="prev-month">&lt;</button>
+        <h2 class="current-month"></h2>
+        <button class="next-month">&gt;</button>
       </div>
-      <div class="task-item">
-        <img src="tarefa2.jpg" alt="Tarefa 2">
-        <h3>Tarefa 2</h3>
-        <p>Descrição da Tarefa 2</p>
-        <button class="complete-btn">Marcar como Concluída</button>
+      <table class="calendar-grid">
+        <thead>
+          <tr>
+            <th>Dom</th>
+            <th>Seg</th>
+            <th>Ter</th>
+            <th>Qua</th>
+            <th>Qui</th>
+            <th>Sex</th>
+            <th>Sáb</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="event-modal">
+        <div class="event-modal-content">
+          <span class="close-modal">&times;</span>
+          <input type="text" placeholder="Título do evento" />
+          <textarea placeholder="Detalhes do evento"></textarea>
+          <button class="save-event">Salvar evento</button>
+        </div>
       </div>
-      <!-- Adicione mais tarefas aqui -->
-    </section>
-
-    <section class="score-board">
-      <h2>Pontuação</h2>
-      <p>Pontos: <span id="score">0</span></p>
-    </section>
-  </main>
-
+    </div>
+  </div>
   <script src="tarefas.js"></script>
 </body>
 </html>

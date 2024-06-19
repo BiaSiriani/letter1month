@@ -1,86 +1,151 @@
-const tasksContainer = document.querySelector('.tasks-container');
-const challengesContainer = document.querySelector('.challenges-container');
-const scoreDisplay = document.getElementById('score');
-const navLinks = document.querySelectorAll('nav a');
+document.addEventListener('DOMContentLoaded', function() {
+  const calendarGrid = document.querySelector('.calendar-grid tbody');
+  const prevMonthBtn = document.querySelector('.prev-month');
+  const nextMonthBtn = document.querySelector('.next-month');
+  const currentMonthEl = document.querySelector('.current-month');
+  const eventModal = document.querySelector('.event-modal');
+  const closeModalBtn = document.querySelector('.close-modal');
+  const saveEventBtn = document.querySelector('.save-event');
+  const deleteEventBtn = document.querySelector('.delete-event');
+  const eventTitleInput = document.querySelector('.event-title');
+  const eventDescriptionInput = document.querySelector('.event-description');
 
-let score = 0;
+  let currentDate = new Date();
+  let currentMonth = currentDate.getMonth();
+  let currentYear = currentDate.getFullYear();
+  let selectedDay = null;
+  let selectedEvent = null;
+  let events = {};
 
-// Dados das tarefas
-const tasks = [
-  { id: 1, category: 'adventure', title: 'Tarefa 1', description: 'Descrição da Tarefa 1', image: 'tarefa1.jpg' },
-  { id: 2, category: 'creativity', title: 'Tarefa 2', description: 'Descrição da Tarefa 2', image: 'tarefa2.jpg' },
-  { id: 3, category: 'romance', title: 'Tarefa 3', description: 'Descrição da Tarefa 3', image: 'tarefa3.jpg' },
-  // Adicione mais tarefas aqui
-];
+  function renderCalendar() {
+   
+    for (let week = 0; week < 6; week++) {
+      const rowEl = document.createElement('tr');
+      for (let weekday = 0; weekday < 7; weekday++) {
+        const cellEl = document.createElement('td');
+        const day = (week * 7) + weekday + 1 - firstDay;
+        if (day > 0 && day <= daysInMonth) {
+          cellEl.textContent = day;
+          cellEl.addEventListener('click', () => showEventModal(day));
+        
+          // Verificar se é o dia atual
+          const today = new Date();
+          if (day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
+            cellEl.classList.add('current-day');
+          }
+          // Verificar se o dia é anterior ao dia atual
+          else if (day < today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
+            cellEl.classList.add('past-day');
+          }
+          // Verificar se o dia é posterior ao dia atual
+          else if (day > today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
+            cellEl.classList.add('future-day');
+          }
+        
+          // Verificar se existe um evento para o dia atual
+          if (events[`${currentYear}-${currentMonth + 1}-${day}`]) {
+            cellEl.classList.add('has-event');
+          }
+        }
 
-// Dados dos desafios
-const challenges = [
-  { id: 1, title: 'Desafio 1', description: 'Descrição do Desafio 1' },
-  { id: 2, title: 'Desafio 2', description: 'Descrição do Desafio 2' },
-  // Adicione mais desafios aqui
-];
-
-// Função para renderizar as tarefas
-function renderTasks(category = 'all') {
-  tasksContainer.innerHTML = '';
-
-  tasks.forEach(task => {
-    if (category === 'all' || task.category === category) {
-      const taskItem = document.createElement('div');
-      taskItem.classList.add('task-item');
-
-      taskItem.innerHTML = `
-        <img src="${task.image}" alt="${task.title}">
-        <h3>${task.title}</h3>
-        <p>${task.description}</p>
-        <button class="complete-btn">Marcar como Concluída</button>
-      `;
-
-      taskItem.querySelector('.complete-btn').addEventListener('click', () => {
-        taskItem.querySelector('.complete-btn').disabled = true;
-        taskItem.querySelector('.complete-btn').textContent = 'Concluído!';
-        score += 10;
-        scoreDisplay.textContent = score;
-      });
-
-      tasksContainer.appendChild(taskItem);
+        rowEl.appendChild(cellEl);
+      }
+      calendarGrid.appendChild(rowEl);
     }
+  }
+
+  function showEventModal(day) {
+    selectedDay = day;
+    eventModal.style.display = 'block';
+
+    // Verificar se existe um evento para o dia selecionado
+    const eventKey = `${currentYear}-${currentMonth + 1}-${selectedDay}`;
+    if (events[eventKey]) {
+      selectedEvent = events[eventKey];
+      eventTitleInput.value = selectedEvent.title;
+      eventDescriptionInput.value = selectedEvent.description;
+      deleteEventBtn.style.display = 'inline-block';
+    } else {
+      selectedEvent = null;
+      eventTitleInput.value = '';
+      eventDescriptionInput.value = '';
+      deleteEventBtn.style.display = 'none';
+    }
+  }
+
+  function closeEventModal() {
+    eventModal.style.display = 'none';
+    eventTitleInput.value = '';
+    eventDescriptionInput.value = '';
+    selectedDay = null;
+    selectedEvent = null;
+  }
+
+  function saveEvent() {
+    const eventTitle = eventTitleInput.value.trim();
+    const eventDescription = eventDescriptionInput.value.trim();
+
+    if (eventTitle && selectedDay) {
+      const eventKey = `${currentYear}-${currentMonth + 1}-${selectedDay}`;
+      events[eventKey] = {
+        title: eventTitle,
+        description: eventDescription
+      };
+
+      // Atualizar a aparência da célula do calendário
+      const cellEl = calendarGrid.querySelector(`td:nth-child(${selectedDay + (selectedDay - 1) * 6})`);
+      cellEl.classList.add('has-event');
+
+      console.log(`Evento salvo: ${eventTitle} (${selectedDay} de ${getMonthName(currentMonth)} de ${currentYear})`);
+      closeEventModal();
+      renderCalendar();
+    }
+  }
+
+  function deleteEvent() {
+    if (selectedEvent) {
+      const eventKey = `${currentYear}-${currentMonth + 1}-${selectedDay}`;
+      delete events[eventKey];
+
+      // Atualizar a aparência da célula do calendário
+      const cellEl = calendarGrid.querySelector(`td:nth-child(${selectedDay + (selectedDay - 1) * 6})`);
+      cellEl.classList.remove('has-event');
+
+      console.log(`Evento excluído: ${selectedEvent.title} (${selectedDay} de ${getMonthName(currentMonth)} de ${currentYear})`);
+      closeEventModal();
+      renderCalendar();
+    }
+  }
+
+  prevMonthBtn.addEventListener('click', () => {
+    currentMonth--;
+    if (currentMonth < 0) {
+      currentMonth = 11;
+      currentYear--;
+    }
+    renderCalendar();
   });
-}
 
-// Função para renderizar os desafios
-function renderChallenges() {
-  challengesContainer.innerHTML = '';
-
-  challenges.forEach(challenge => {
-    const challengeItem = document.createElement('div');
-    challengeItem.classList.add('challenge-item');
-
-    challengeItem.innerHTML = `
-      <h3>${challenge.title}</h3>
-      <p>${challenge.description}</p>
-      <button class="complete-challenge">Concluir Desafio</button>
-    `;
-
-    challengeItem.querySelector('.complete-challenge').addEventListener('click', () => {
-      challengeItem.querySelector('.complete-challenge').disabled = true;
-      score += 20;
-      scoreDisplay.textContent = score;
-    });
-
-    challengesContainer.appendChild(challengeItem);
+  nextMonthBtn.addEventListener('click', () => {
+    currentMonth++;
+    if (currentMonth > 11) {
+      currentMonth = 0;
+      currentYear++;
+    }
+    renderCalendar();
   });
-}
 
-// Adiciona event listeners aos links de navegação
-navLinks.forEach(link => {
-  link.addEventListener('click', (e) => {
-    e.preventDefault();
-    const category = e.target.dataset.category;
-    renderTasks(category);
-  });
+  closeModalBtn.addEventListener('click', closeEventModal);
+  saveEventBtn.addEventListener('click', saveEvent);
+  deleteEventBtn.addEventListener('click', deleteEvent);
+
+  renderCalendar();
 });
 
-// Renderiza as tarefas e os desafios inicialmente
-renderTasks();
-renderChallenges();
+function getMonthName(monthIndex) {
+  const months = [
+    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+  ];
+  return months[monthIndex];
+}
