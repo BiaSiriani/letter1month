@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tarefas Divertidas</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Tarefas Divertidas</h1>
+    <nav>
+      <ul>
+        <li><a href="#">Todas</a></li>
+        <li><a href="#">Aventura</a></li>
+        <li><a href="#">Criatividade</a></li>
+        <li><a href="#">Romantismo</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="tasks-container">
+      <div class="task-item">
+        <img src="tarefa1.jpg" alt="Tarefa 1">
+        <h3>Tarefa 1</h3>
+        <p>Descrição da Tarefa 1</p>
+        <button class="complete-btn">Marcar como Concluída</button>
+      </div>
+      <div class="task-item">
+        <img src="tarefa2.jpg" alt="Tarefa 2">
+        <h3>Tarefa 2</h3>
+        <p>Descrição da Tarefa 2</p>
+        <button class="complete-btn">Marcar como Concluída</button>
+      </div>
+      <!-- Adicione mais tarefas aqui -->
+    </section>
+
+    <section class="score-board">
+      <h2>Pontuação</h2>
+      <p>Pontos: <span id="score">0</span></p>
+    </section>
+  </main>
+
+  <script src="tarefas.js"></script>
+</body>
+</html>
