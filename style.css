@@ -6,8 +6,8 @@ body {
 }
 
 header {
-  background-color: #333;
-  color: #fff;
+  background-color: #a71de7;
+  color: #ffffff;
   padding: 20px;
 }
 
@@ -24,12 +24,12 @@ nav ul li {
 }
 
 nav ul li a {
-  color: #fff;
+  color: #000000;
   text-decoration: none;
 }
 
 .hero {
-  background-color: #f2f2f2;
+  background-color: #d870f8a4;
   padding: 80px 20px;
   text-align: center;
 }
@@ -45,8 +45,8 @@ nav ul li a {
 }
 
 .card {
-  background-color: #fff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  background-color: #d870f8a4;
+  box-shadow: 0 2px 6px rgba(35, 0, 46, 0.541);
   padding: 20px;
   text-align: center;
 }
@@ -57,7 +57,7 @@ nav ul li a {
 
 .print-btn {
   display: inline-block;
-  background-color: #333;
+  background-color: #9203bd;
   color: #fff;
   text-decoration: none;
   padding: 10px 20px;
@@ -67,14 +67,14 @@ nav ul li a {
 }
 
 .create-cards {
-  background-color: #f2f2f2;
+  background-color: #d870f8a4;
   padding: 40px 20px;
   text-align: center;
 }
 
 .btn {
   display: inline-block;
-  background-color: #333;
+  background-color: #9203bd;
   color: #fff;
   text-decoration: none;
   padding: 10px 20px;
@@ -82,8 +82,8 @@ nav ul li a {
 }
 
 footer {
-  background-color: #333;
-  color: #fff;
+  background-color: #a71de7;
+  color: #000000;
   padding: 20px;
   text-align: center;
 }
@@ -106,6 +106,6 @@ footer {
 }
 
 .footer-content ul li a {
-  color: #fff;
+  color: #000000;
   text-decoration: none;
 }
