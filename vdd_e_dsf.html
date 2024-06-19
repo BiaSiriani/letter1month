@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desafios Verdade ou Consequência</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Desafios Verdade ou Consequência</h1>
+    <nav>
+      <ul>
+        <li><a href="#">Início</a></li>
+        <li><a href="#">Desafios</a></li>
+        <li><a href="#">Pontuação</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="challenge-container">
+      <div class="challenge-card">
+        <h2>Verdade ou Consequência</h2>
+        <p id="challenge-text">Clique no botão abaixo para receber um novo desafio!</p>
+        <div class="challenge-buttons">
+          <button id="truth-btn">Verdade</button>
+          <button id="dare-btn">Consequência</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="score-board">
+      <h2>Pontuação</h2>
+      <p>Verdades: <span id="truth-score">0</span></p>
+      <p>Consequências: <span id="dare-score">0</span></p>
+      <p>Total: <span id="total-score">0</span></p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
