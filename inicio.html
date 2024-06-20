@@ -1,62 +1,137 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cartas Divertidas para Casais</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-  <nav>
-    <ul>
-      <li><a href="pginicial.html" class="btn-nav">Voltar</a></li>
-      <li><a href="perguntas.html" class="btn-nav">Perguntas para Casais</a></li>
-      <li><a href="tarefas.html" class="btn-nav">Encontros Criativas</a></li>
-      <li><a href="vdd_e_dsf.html" class="btn-nav">Desafios "Verdade ou Consequência"</a></li>
-    </ul>
-  </nav>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Cartas Divertidas para Casais</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link btn-nav" href="pginicial.html">Voltar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn-nav" href="perguntas.html">Perguntas para Casais</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn-nav" href="tarefas.html">Encontros Criativos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn-nav" href="vdd_e_dsf.html">Desafios "Verdade ou Consequência"</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
   </header>
 
   <main>
     <section class="hero">
-      <h1>Cartas Divertidas para Casais</h1>
-      <p>Fortaleça seu relacionamento com perguntas, tarefas e desafios divertidos!</p>
-    </section>
-
-    <section class="card-gallery">
-      <h2>Perguntas para Casais</h2>
-      <div class="card-container">
-        <div class="card">
-          <h3>Qual foi o nosso primeiro encontro?</h3>
-          <button class="print-btn">Dicas</button>
-        </div>
-        <div class="card">
-          <h3>Qual é o seu maior sonho para o futuro?</h3>
-          <button class="print-btn">Dicas</button>
-        </div>
-        <!-- Outras cartas de exemplo -->
+      <div class="container">
+        <h1>Cartas Divertidas para Casais</h1>
+        <p>Fortaleça seu relacionamento com perguntas, tarefas e desafios divertidos!</p>
       </div>
     </section>
 
-    <section class="create-cards">
-      <h2>Crie Suas Próprias Cartas</h2>
-      <p>Personalize perguntas, tarefas e desafios para seu relacionamento.</p>
-      <a href="#" class="btn">Criar Cartas</a>
+    <section class="card-gallery">
+      <div id="cardCarousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="card">
+              <h3>Qual foi o nosso primeiro encontro?</h3>
+              <button class="print-btn">Dicas</button>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="card">
+              <h3>Qual é o seu maior sonho para o futuro?</h3>
+              <button class="print-btn">Dicas</button>
+            </div>
+          </div>
+          <!-- Adicionar mais cartões conforme necessário -->
+        </div>
+        <a class="carousel-control-prev" href="#cardCarousel" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Anterior</span>
+        </a>
+        <a class="carousel-control-next" href="#cardCarousel" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Próximo</span>
+        </a>
+      </div>
     </section>
+
+    
   </main>
 
-  <footer>
-    <div class="footer-content">
-      <p>&copy; Feliz Aniversario de 1 mês de namoro</p>
-      <ul>
-        <li><a href="#">Dicas e Inspirações</a></li>
-        <li><a href="#">História do Casal</a></li>
-        <li><a href="creditos.html">Créditos</a></li>
-
-      </ul>
+  <footer class="footer mt-5">
+    <div class="container">
+      <div class="footer-content">
+        <p>&copy; Feliz Aniversário de 1 mês de namoro</p>
+        <ul class="footer-links">
+          <li><a href="#">Dicas e Inspirações</a></li>
+          <li><a href="#">História do Casal</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#creditsModal">Créditos</a></li>
+        </ul>
+      </div>
     </div>
   </footer>
+  
+  <!-- Modal de Créditos -->
+  <div class="modal fade" id="creditsModal" tabindex="-1" role="dialog" aria-labelledby="creditsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="creditsModalLabel">Créditos</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h1>Nossos Créditos e a História deste Projeto Especial</h1>
+          <div class="credit-content">
+            <h2>Introdução e Motivação</h2>
+            <p>Meu amor, este site foi desenvolvido especialmente para nós como uma forma de registrar de datas especiais e fazer dessas datas mais divertidas e alegres.</p>
+          </div>
+          <div class="credit-content">
+            <h2>Dedicatória</h2>
+            <p>Felipe, este projeto representa todo o meu amor, carinho e esforço em criar algo único e significativo apenas para nós dois. Você foi a minha inspiração e o motivo pelo qual decidi desenvolver esta ferramenta personalizada. Espero que possamos usá-la com muito prazer e que este site se torne um reflexo de nossa história.</p>
+          </div>
+          <div class="credit-content">
+            <h2>Agradecimentos</h2>
+            <p>Gostaria de agradecer a algumas pessoas que me apoiaram neste projeto:</p>
+            <ul>
+              <li>A comunidade de desenvolvimento web, por todo o conteúdo e recursos disponíveis que me ajudaram a aprender e realizar este sonho.</li>
+              <li>Minha família, por todo o apoio e compreensão durante o processo de criação deste presente especial.</li>
+            </ul>
+          </div>
+          <div class="credit-content">
+            <h2>Sobre Mim</h2>
+            <p>Meu nome é Beatriz e estar com você é a minha maior fonte de inspiração. Sempre tive interesse em desenvolvimento web, e este projeto representa uma oportunidade de colocar em prática minhas habilidades em prol de nossa relação.</p>
+            <p>Espero que este site seja útil e divertido para nós usarmos juntos. Se você tiver alguma sugestão ou feedback, fique à vontade para compartilhar comigo.</p>
+            <p>Eu te amo meu amor.</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS, Popper.js, and jQuery (for Bootstrap) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

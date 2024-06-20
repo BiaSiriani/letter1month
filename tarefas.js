@@ -1,120 +1,67 @@
-document.addEventListener('DOMContentLoaded', function() {
-  const calendarGrid = document.querySelector('.calendar-grid tbody');
+$(document).ready(function() {
+  const calendarGrid = document.querySelector('#calendar tbody');
   const prevMonthBtn = document.querySelector('.prev-month');
   const nextMonthBtn = document.querySelector('.next-month');
   const currentMonthEl = document.querySelector('.current-month');
-  const eventModal = document.querySelector('.event-modal');
-  const closeModalBtn = document.querySelector('.close-modal');
-  const saveEventBtn = document.querySelector('.save-event');
-  const deleteEventBtn = document.querySelector('.delete-event');
-  const eventTitleInput = document.querySelector('.event-title');
-  const eventDescriptionInput = document.querySelector('.event-description');
+  const eventTable = $('#eventTable').DataTable({
+    searching: false,
+    paging: false,
+    info: false,
+    order: [[0, 'asc']], // Ordena por data ascendente
+    columnDefs: [
+      { targets: [3], orderable: false } // Desabilita ordenação para coluna de ações
+    ]
+  });
 
   let currentDate = new Date();
   let currentMonth = currentDate.getMonth();
   let currentYear = currentDate.getFullYear();
-  let selectedDay = null;
-  let selectedEvent = null;
-  let events = {};
 
   function renderCalendar() {
-   
+    calendarGrid.innerHTML = '';
+    currentMonthEl.textContent = `${getMonthName(currentMonth)} ${currentYear}`;
+
+    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+    let dayCounter = 1;
     for (let week = 0; week < 6; week++) {
       const rowEl = document.createElement('tr');
       for (let weekday = 0; weekday < 7; weekday++) {
         const cellEl = document.createElement('td');
-        const day = (week * 7) + weekday + 1 - firstDay;
-        if (day > 0 && day <= daysInMonth) {
-          cellEl.textContent = day;
-          cellEl.addEventListener('click', () => showEventModal(day));
-        
-          // Verificar se é o dia atual
-          const today = new Date();
-          if (day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
-            cellEl.classList.add('current-day');
-          }
-          // Verificar se o dia é anterior ao dia atual
-          else if (day < today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
-            cellEl.classList.add('past-day');
-          }
-          // Verificar se o dia é posterior ao dia atual
-          else if (day > today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
-            cellEl.classList.add('future-day');
-          }
-        
-          // Verificar se existe um evento para o dia atual
-          if (events[`${currentYear}-${currentMonth + 1}-${day}`]) {
-            cellEl.classList.add('has-event');
-          }
+        if (week === 0 && weekday < firstDay) {
+          cellEl.classList.add('blank');
+        } else if (dayCounter > daysInMonth) {
+          cellEl.classList.add('blank');
+        } else {
+          const date = new Date(currentYear, currentMonth, dayCounter);
+          cellEl.textContent = dayCounter;
+          cellEl.dataset.date = formatDate(date); // Adiciona atributo data-date
+          cellEl.addEventListener('click', () => showEventModal(date));
+          dayCounter++;
         }
-
         rowEl.appendChild(cellEl);
       }
       calendarGrid.appendChild(rowEl);
     }
   }
 
-  function showEventModal(day) {
-    selectedDay = day;
-    eventModal.style.display = 'block';
-
-    // Verificar se existe um evento para o dia selecionado
-    const eventKey = `${currentYear}-${currentMonth + 1}-${selectedDay}`;
-    if (events[eventKey]) {
-      selectedEvent = events[eventKey];
-      eventTitleInput.value = selectedEvent.title;
-      eventDescriptionInput.value = selectedEvent.description;
-      deleteEventBtn.style.display = 'inline-block';
-    } else {
-      selectedEvent = null;
-      eventTitleInput.value = '';
-      eventDescriptionInput.value = '';
-      deleteEventBtn.style.display = 'none';
-    }
+  function showEventModal(date) {
+    $('#eventDate').val(formatDate(date)); // Define a data no modal
+    $('#eventModal').modal('show'); // Mostra o modal
   }
 
-  function closeEventModal() {
-    eventModal.style.display = 'none';
-    eventTitleInput.value = '';
-    eventDescriptionInput.value = '';
-    selectedDay = null;
-    selectedEvent = null;
+  function formatDate(date) {
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
   }
 
-  function saveEvent() {
-    const eventTitle = eventTitleInput.value.trim();
-    const eventDescription = eventDescriptionInput.value.trim();
-
-    if (eventTitle && selectedDay) {
-      const eventKey = `${currentYear}-${currentMonth + 1}-${selectedDay}`;
-      events[eventKey] = {
-        title: eventTitle,
-        description: eventDescription
-      };
-
-      // Atualizar a aparência da célula do calendário
-      const cellEl = calendarGrid.querySelector(`td:nth-child(${selectedDay + (selectedDay - 1) * 6})`);
-      cellEl.classList.add('has-event');
-
-      console.log(`Evento salvo: ${eventTitle} (${selectedDay} de ${getMonthName(currentMonth)} de ${currentYear})`);
-      closeEventModal();
-      renderCalendar();
-    }
-  }
-
-  function deleteEvent() {
-    if (selectedEvent) {
-      const eventKey = `${currentYear}-${currentMonth + 1}-${selectedDay}`;
-      delete events[eventKey];
-
-      // Atualizar a aparência da célula do calendário
-      const cellEl = calendarGrid.querySelector(`td:nth-child(${selectedDay + (selectedDay - 1) * 6})`);
-      cellEl.classList.remove('has-event');
-
-      console.log(`Evento excluído: ${selectedEvent.title} (${selectedDay} de ${getMonthName(currentMonth)} de ${currentYear})`);
-      closeEventModal();
-      renderCalendar();
-    }
+  function getMonthName(monthIndex) {
+    const monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+                        'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+    return monthNames[monthIndex];
   }
 
   prevMonthBtn.addEventListener('click', () => {
@@ -135,17 +82,34 @@ document.addEventListener('DOMContentLoaded', function() {
     renderCalendar();
   });
 
-  closeModalBtn.addEventListener('click', closeEventModal);
-  saveEventBtn.addEventListener('click', saveEvent);
-  deleteEventBtn.addEventListener('click', deleteEvent);
+  $('#saveEventBtn').on('click', function() {
+    const eventId = $('#eventId').val();
+    const eventDate = $('#eventDate').val();
+    const eventTitle = $('#eventTitle').val();
+    const eventDescription = $('#eventDescription').val();
+
+    // Adicionar evento ao DataTable
+    eventTable.row.add([eventDate, eventTitle, eventDescription, `
+     
+      <button type="button" class="btn btn-sm btn-danger delete-btn">Excluir</button>
+    `]).draw();
+
+    $('#eventModal').modal('hide');
+  });
+
+  // Eventos para editar e excluir
+  $('#eventTable tbody').on('click', '.edit-btn', function() {
+    const data = eventTable.row($(this).parents('tr')).data();
+    $('#eventId').val(data[0]); // Define o ID do evento
+    $('#eventDate').val(data[0]); // Define a data do evento
+    $('#eventTitle').val(data[1]); // Define o título do evento
+    $('#eventDescription').val(data[2]); // Define a descrição do evento
+    $('#eventModal').modal('show');
+  });
+
+  $('#eventTable tbody').on('click', '.delete-btn', function() {
+    eventTable.row($(this).parents('tr')).remove().draw();
+  });
 
   renderCalendar();
 });
-
-function getMonthName(monthIndex) {
-  const months = [
-    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
-  ];
-  return months[monthIndex];
-}

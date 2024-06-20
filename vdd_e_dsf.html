@@ -3,32 +3,74 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Desafios Verdade ou Consequência</title>
-  <link rel="stylesheet" href="vdd_e_dsf.css">
+  <title>Verdade ou Desafio</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- Emojis CSS (Twemoji) -->
+  <link rel="stylesheet" href="https://twemoji.maxcdn.com/v/latest/twemoji.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <header>
-    <h1>Verdade ou desafio</h1>
-    <nav>
-      <ul>
-        <li><a href="inicio.html">Voltar</a></li>
+<body> <header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Cartas Divertidas para Casais</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link btn-nav" href="pginicial.html">Voltar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link btn-nav" href="perguntas.html">Perguntas para Casais</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link btn-nav" href="tarefas.html">Encontros Criativos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link btn-nav" href="vdd_e_dsf.html">Desafios "Verdade ou Consequência"</a>
+        </li>
       </ul>
-    </nav>
-  </header>
+    </div>
+  </nav>
+</header>
+  <div class="container">
+    <div class="row">
+    <div class="card mt-5">
+      
+        <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
 
-  <main>
-    <section class="challenge-container">
-      <div class="challenge-card">
-        <h2>Verdade ou Consequência</h2>
-        <p id="challenge-text">Clique no botão abaixo para receber um novo desafio!</p>
-        <div class="challenge-buttons">
-          <button id="truth-btn">Verdade</button>
-          <button id="dare-btn">desafio</button>
+    <dotlottie-player src="https://lottie.host/a1e242a3-3bed-4b8f-8b81-9ec5bc3dc655/SyBEDlV9V5.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
+      </div>
+      <div class="card mt-5">
+      <div class="card-header bg-info text-white">
+        <h2><i class="fas fa-question-circle mr-2"></i> Verdade ou Desafio <i class="fas fa-question-circle ml-2"></i></h2>
+      </div>
+      <div class="card-body">
+        <p id="challenge-text" class="challenge-text mb-4"></p>
+        <div class="buttons">
+          <button id="truth-btn" class="btn btn-success mr-2"><i class="far fa-check-circle"></i> Verdade</button>
+          <button id="dare-btn" class="btn btn-danger"><i class="fas fa-fire"></i> Desafio</button>
+        </div>
+        <div class="scores mt-4">
+          <p>Verdades: <span id="truth-score">0</span></p>
+          <p>Desafios: <span id="dare-score">0</span></p>
+          <p>Total: <span id="total-score">0</span></p>
         </div>
       </div>
-    </section>
-  </main>
-
+    </div>
+  </div>
+</div>
+</div>
+  
+  <!-- Bootstrap JS, Popper.js, and jQuery (for Bootstrap) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- Custom JavaScript -->
   <script src="vdd_e_dsf.js"></script>
 </body>
 </html>

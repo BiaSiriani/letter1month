@@ -4,18 +4,48 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calendário Mensal Compartilhado</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
   <link rel="stylesheet" href="tarefas.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
+
+
+      <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="#">Cartas Divertidas para Casais</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link btn-nav" href="pginicial.html">Voltar</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn-nav" href="perguntas.html">Perguntas para Casais</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn-nav" href="tarefas.html">Encontros Criativos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn-nav" href="vdd_e_dsf.html">Desafios "Verdade ou Consequência"</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+      <div class="container">
     <h1>Calendário Mensal Compartilhado</h1>
     <div class="calendar-container">
       <div class="calendar-header">
-        <button class="prev-month">&lt;</button>
+        <button class="prev-month btn btn-primary">&lt;</button>
         <h2 class="current-month"></h2>
-        <button class="next-month">&gt;</button>
+        <button class="btn next-month btn btn-primary">&gt;</button>
       </div>
-      <table class="calendar-grid">
+      <table id="calendar" class="calendar-grid table table-bordered table-striped">
         <thead>
           <tr>
             <th>Dom</th>
@@ -29,16 +59,76 @@
         </thead>
         <tbody></tbody>
       </table>
-      <div class="event-modal">
-        <div class="event-modal-content">
-          <span class="close-modal">&times;</span>
-          <input type="text" placeholder="Título do evento" />
-          <textarea placeholder="Detalhes do evento"></textarea>
-          <button class="save-event">Salvar evento</button>
+    </div>
+
+    <div class="event-list mt-4">
+      <h2>Eventos Cadastrados</h2>
+      <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#eventModal">
+        Adicionar Evento
+      </button>
+      <table id="eventTable" class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Título</th>
+            <th>Descrição</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="eventModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Adicionar Evento</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="eventForm">
+            <input type="hidden" id="eventId">
+            <div class="form-group">
+              <label for="eventDate">Data:</label>
+              <input type="text" class="form-control datepicker" id="eventDate" autocomplete="off" required>
+            </div>
+            <div class="form-group">
+              <label for="eventTitle">Título:</label>
+              <input type="text" class="form-control" id="eventTitle" required>
+            </div>
+            <div class="form-group">
+              <label for="eventDescription">Descrição:</label>
+              <textarea class="form-control" id="eventDescription" rows="3"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="saveEventBtn">Salvar</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
         </div>
       </div>
     </div>
   </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
   <script src="tarefas.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      $('.datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+        autoclose: true,
+        todayHighlight: true
+      });
+    });
+  </script>
 </body>
 </html>
