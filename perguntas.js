@@ -29,6 +29,7 @@ const questions = [
     "Como você gostaria de ser lembrado pelas pessoas?",
     "Quais são as suas principais manias ou hábitos diários?",
     "Você tem algum talento ou habilidade especial que as pessoas não conhecem?"
+    
   ];
   
   let currentQuestionIndex = 0;
